@@ -27,7 +27,8 @@ class ViewController: UITableViewController {
             }
         }
         pictures.sort()
-        print(pictures)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,6 +55,15 @@ class ViewController: UITableViewController {
         } else {
             print("Error")
         }
+    }
+    
+    @objc func shareTapped() {
+        let recommendComment = "Hey guys, Try this app right now!"
+        
+        let vc = UIActivityViewController(activityItems: [recommendComment], applicationActivities: [])
+        // iPad에서는 crash
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 

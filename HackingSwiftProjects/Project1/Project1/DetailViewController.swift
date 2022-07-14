@@ -21,6 +21,10 @@ class DetailViewController: UIViewController {
         title = "Picture \(currentIndex) of \(totalIndex)"
         navigationItem.largeTitleDisplayMode = .never
         
+        // target 파라미터는 해당 sharedTapped 함수가 어디에 있는지 그 위치를 지정
+        // #selector -> swift컴파일러에게 해당 메소드가 존재할 것이라고 알려줌(오타 디버깅에 도움됨)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
         if let imageToLoad = selectedImage {
             imageView.image = UIImage(named: imageToLoad)
         } else {
@@ -36,6 +40,19 @@ class DetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
+    }
+    
+    // Obj-C로 구현된 UIBarButtonItem은 swift 함수인 shareTapped를 인식하지 못함 -> objc attribute 선언 필요
+    @objc func shareTapped() {
+        guard let image = imageView.image?.jpegData(compressionQuality: 0.8), let imageName = selectedImage else {
+            print("No Image Found...")
+            return
+        }
+        
+        let vc = UIActivityViewController(activityItems: [imageName, image], applicationActivities: [])
+        // iPad에서는 crash
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
     /*
     // MARK: - Navigation
