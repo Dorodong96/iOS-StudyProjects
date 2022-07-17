@@ -12,7 +12,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     // reference로 활용하기 위해 선언
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["apple.com", "hackingwithswift.com"]
+    var websites = ["naver.com", "apple.com", "hackingwithswift.com", "google.com", "adfadfasdfasdfsdaf.com"]
     
     override func loadView() {
         webView = WKWebView()
@@ -27,6 +27,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
         
+        let goBack = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: webView, action: #selector(webView.goBack))
+        let goForward = UIBarButtonItem(image: UIImage(systemName: "arrow.right"), style: .plain, target: webView, action: #selector(webView.goForward))
         // space를 만들어줌
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         // refresh button
@@ -37,7 +39,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         // progress 상태를 Toolbar에 띄울 수 있음
         let progressButton = UIBarButtonItem(customView: progressView)
         
-        toolbarItems = [progressButton, spacer, refresh]
+        toolbarItems = [goBack, goForward, spacer, progressButton, spacer, refresh]
         navigationController?.isToolbarHidden = false
         
         // addObserver(observer, 어떤 프로퍼티를 observe할 것인지, 어떤 값을 원하는지, observer에게 전달되는 arbitrary 값)
@@ -54,7 +56,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
         
         for website in websites {
-            
             ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
         }
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -62,9 +63,20 @@ class ViewController: UIViewController, WKNavigationDelegate {
         present(ac, animated: true)
     }
     
+    func openAlert() {
+        let alert = UIAlertController(title: "Page Not Found", message: "Try other options", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Close", comment: "Default action"), style: .destructive, handler: stopLoadingPage))
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     func openPage(action: UIAlertAction) {
         let url = URL(string: "https://" + action.title!)!
         webView.load(URLRequest(url: url))
+    }
+    
+    func stopLoadingPage(action: UIAlertAction) {
+        webView.stopLoading()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -90,6 +102,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
                     decisionHandler(.allow)
                     // 메소드 바로 탈출
                     return
+                } else {
+                    openAlert()
                 }
             }
         }
