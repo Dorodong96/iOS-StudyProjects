@@ -228,3 +228,5 @@ fastlane/test_output
 iOSInjectionProject/
 *.png
 *.png
+
+CenterButton
