@@ -37,7 +37,7 @@ class ViewController: UITableViewController {
         usedWords.removeAll(keepingCapacity: true)
         // capacity가 유지된 채로 tavleView가 load
         tableView.reloadData()
-    }t 
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return usedWords.count
