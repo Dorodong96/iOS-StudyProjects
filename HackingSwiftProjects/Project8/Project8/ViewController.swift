@@ -22,6 +22,7 @@ class ViewController: UIViewController {
             scoreLabel.text = "Score: \(score)"
         }
     }
+    var count = 0
     var level = 1
     
     // 코드로 UI 생성
@@ -117,7 +118,8 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
                 letterButton.setTitle("WWW", for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
-                
+                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderColor = UIColor.lightGray.cgColor
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
                 
@@ -145,6 +147,7 @@ class ViewController: UIViewController {
         guard let answerText = currentAnswer.text else { return }
         
         if let solutionPosition = solutions.firstIndex(of: answerText) {
+            // 정답을 입력한 경우
             activatedButtons.removeAll()
             
             var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
@@ -153,12 +156,30 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
+            count += 1
             
-            if score % 7 == 0 {
+            if count == 7 && score >= 5 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
+            } else if count == 7 && score < 5{
+                let ac = UIAlertController(title: "Game Over", message: "Your score is too low. Try Again?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: resetGame))
+                present(ac, animated: true)
             }
+        } else {
+            // 틀린 답을 입력한 경우
+            score -= 1
+            
+            for btn in activatedButtons {
+                btn.isHidden = false
+            }
+            activatedButtons.removeAll()
+            currentAnswer.text = ""
+            
+            let ac = UIAlertController(title: "That's wrong!", message: "Select other options!", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         }
     }
     
@@ -215,6 +236,14 @@ class ViewController: UIViewController {
         level += 1
         solutions.removeAll(keepingCapacity: true)
         
+        loadLevel()
+        
+        for btn in letterButtons {
+            btn.isHidden = false
+        }
+    }
+    
+    func resetGame(action: UIAlertAction) {
         loadLevel()
         
         for btn in letterButtons {
