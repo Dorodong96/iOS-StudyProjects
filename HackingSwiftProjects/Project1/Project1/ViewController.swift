@@ -21,13 +21,15 @@ class ViewController: UITableViewController {
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
         
-        for item in items {
-            if item.hasPrefix("nssl") {
-                pictures.append(item)
+        DispatchQueue.global().async {
+            for item in items {
+                if item.hasPrefix("nssl") {
+                    self.pictures.append(item)
+                }
             }
+            self.pictures.sort()
         }
-        pictures.sort()
-        
+        tableView.reloadData()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
     }
 

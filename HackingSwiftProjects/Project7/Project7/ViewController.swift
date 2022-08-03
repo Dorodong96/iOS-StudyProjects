@@ -82,16 +82,21 @@ class ViewController: UITableViewController {
     
     // petition의 단어 필터링
     func filterWord(_ word: String?) {
-        if let word = word {
-            for petition in petitions {
-                if petition.title.contains(word) {
-                    filteredPetitions.append(petition)
-                    tableView.reloadData()
+        DispatchQueue.global().async {
+            if let word = word {
+                for petition in self.petitions {
+                    if petition.title.contains(word) {
+                        self.filteredPetitions.append(petition)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    }
                 }
+            } else {
+                print("No Results")
             }
-        } else {
-            print("No Results")
         }
+        
     }
     
     
