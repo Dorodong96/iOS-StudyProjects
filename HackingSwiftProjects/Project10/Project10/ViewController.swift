@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     var people: [Person] = []
     
     override func viewDidLoad() {
@@ -16,7 +16,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return people.count
     }
@@ -48,27 +48,56 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         // Person cell의 이름을 수정할 수 있도록 부여
         let person = people[indexPath.item]
         
-        let ac = UIAlertController(title: "Rename Person", message: nil, preferredStyle: .alert)
-        ac.addTextField()
         
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        let delAc = UIAlertController(title: "Rename Person Or Delete", message: nil, preferredStyle: .alert)
         
-        ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
-            guard let newName = ac?.textFields?[0].text else { return }
-            person.name = newName
-            
+        // Delete를 눌렀을 때 collectionView에서 cell 삭제
+        delAc.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.people.remove(at: indexPath.item)
             self?.collectionView.reloadData()
         })
         
-        present(ac, animated: true)
+        
+        // Rename을 눌렀을 때 새로운 Alert가 뜨면서 Rename이 가능하도록 수정
+        delAc.addAction(UIAlertAction(title: "Rename", style: .default) { _ in
+            
+            let ac = UIAlertController(title: "Rename Person", message: nil, preferredStyle: .alert)
+            ac.addTextField()
+            
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
+                guard let newName = ac?.textFields?[0].text else { return }
+                person.name = newName
+                self?.collectionView.reloadData()
+            })
+            self.present(ac, animated: true)
+        })
+        
+        self.present(delAc, animated: true)
     }
+    
     
     @objc func addNewPerson() {
         let picker = UIImagePickerController()
+        
+        let ac = UIAlertController(title: "이미지를 어디서 가져오시겠어요?", message: "앨범과 카메라중 선택하세요", preferredStyle: .alert)
+        
         picker.allowsEditing = true
         picker.delegate = self
-        present(picker, animated: true)
+        
+        ac.addAction(UIAlertAction(title: "앨범", style: .default) { _ in
+            self.present(picker, animated: true)
+        })
+        
+        ac.addAction(UIAlertAction(title: "카메라", style: .default) { _ in
+            picker.sourceType = .camera
+            self.present(picker, animated: true)
+        })
+        
+        self.present(ac, animated: true)
     }
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
@@ -92,7 +121,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         dismiss(animated: true)
     }
     
-    // 디렉토리애서 파일 가져오기 
+    // 디렉토리애서 파일 가져오기
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
