@@ -98,9 +98,7 @@ class ViewController: UIViewController {
             submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
             submit.heightAnchor.constraint(equalToConstant: 44),
             
-            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
-            clear.heightAnchor.constraint(equalToConstant: 44),
+a
             
             buttonsView.widthAnchor.constraint(equalToConstant: 750),
             buttonsView.heightAnchor.constraint(equalToConstant: 320),
