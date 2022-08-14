@@ -23,12 +23,25 @@ class ViewController: UITableViewController {
             }
         }
         
+        let defaults = UserDefaults.standard
+        
         // count보다 빠르당
         if allWords.isEmpty {
             allWords = ["silkworm"]
         }
         
         startGame()
+        
+        if let savedTitle = defaults.object(forKey: "title") as? Data, let savedWords = defaults.object(forKey: "words") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                title = try jsonDecoder.decode(String.self, from: savedTitle)
+                usedWords = try jsonDecoder.decode([String].self, from: savedWords)
+            } catch {
+                print("Cannot load title and words")
+            }
+        }
     }
     
     @objc func startGame() {
@@ -73,6 +86,8 @@ class ViewController: UITableViewController {
             if isOriginal(word: lowerAnswer) {
                 if isReal(word: lowerAnswer) {
                     usedWords.insert(lowerAnswer, at: 0)
+                    
+                    save()
                     
                     let indexPath = IndexPath(row: 0, section: 0)
                     // with -> 애니메이션
@@ -135,6 +150,18 @@ class ViewController: UITableViewController {
         let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedTitle = try? jsonEncoder.encode(title), let savedWords = try? jsonEncoder.encode(usedWords) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedTitle, forKey: "title")
+            defaults.set(savedWords, forKey: "words")
+        } else {
+            print("Cannot save title and words")
+        }
     }
 }
 
