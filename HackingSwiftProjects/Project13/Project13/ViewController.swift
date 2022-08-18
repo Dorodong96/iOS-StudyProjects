@@ -12,6 +12,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var intensity: UISlider!
+    @IBOutlet var changeFilterButton: UIButton!
     
     var currentImage: UIImage!
     
@@ -45,7 +46,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func save(_ sender: UIButton) {
-        guard let image = imageView.image else { return }
+        guard let image = imageView.image else {
+            let ac = UIAlertController(title: "No Image", message: "There is no image to save", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Close", style: .destructive))
+            present(ac, animated: true)
+            return
+        }
         
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
@@ -84,6 +90,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         guard let actionTitle = action.title else { return }
         
         currentFilter = CIFilter(name: actionTitle)
+        print(actionTitle)
+        changeFilterButton.setTitle(actionTitle, for: .normal)
         
         let beginImage = CIImage(image: currentImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
