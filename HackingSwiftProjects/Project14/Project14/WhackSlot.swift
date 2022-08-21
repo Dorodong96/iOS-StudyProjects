@@ -73,6 +73,13 @@ class WhackSlot: SKNode {
         let delay = SKAction.wait(forDuration: 0.25)
         let hide = SKAction.moveBy(x: 0, y: -80, duration: 0.5)
         let notVisible = SKAction.run { [unowned self] in self.isVisible = false }
+        
+        if let smokePraticles = SKEmitterNode(fileNamed: "SmokeParticles") {
+            smokePraticles.position = charNode.position
+            smokePraticles.zPosition = 1
+            addChild(smokePraticles)
+        }
+        
         charNode.run(SKAction.sequence([delay, hide, notVisible]))
     }
 }

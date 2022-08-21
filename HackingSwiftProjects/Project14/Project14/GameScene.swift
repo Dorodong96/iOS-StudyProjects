@@ -11,6 +11,7 @@ import GameplayKit
 class GameScene: SKScene {
     
     var gameScore: SKLabelNode!
+    var finalScore: SKLabelNode!
     var score = 0 {
         didSet {
             gameScore.text = "Score: \(score)"
@@ -62,11 +63,13 @@ class GameScene: SKScene {
             if whackSlot.isHit { continue }
             whackSlot.hit()
             
+            
             if node.name == "charFriend" {
                 // whack이 되면 안되는 펭귄
                 score -= 5
                 
                 run(SKAction.playSoundFileNamed("whackBad.caf", waitForCompletion: false))
+                
             } else if node.name == "charEnemy" {
                 // whack이 되도록 하는 펭귄
                 whackSlot.charNode.xScale = 0.85
@@ -75,6 +78,7 @@ class GameScene: SKScene {
                 
                 run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
             }
+            
         }
     }
     
@@ -98,6 +102,13 @@ class GameScene: SKScene {
             gameOver.position = CGPoint(x: 512, y: 384)
             gameOver.zPosition = 1
             addChild(gameOver)
+            
+            finalScore = SKLabelNode(fontNamed: "Chalkduster")
+            finalScore.text = "Your Score: \(score)"
+            finalScore.position = CGPoint(x: 512, y: 300)
+            finalScore.zPosition = 1
+            finalScore.fontSize = 48
+            addChild(finalScore)
             
             return
         }

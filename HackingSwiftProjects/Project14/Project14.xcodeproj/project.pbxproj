@@ -29,6 +29,8 @@
 		CCDC3DA228B13C400088CBA9 /* gameOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CCDC3D9428B13C400088CBA9 /* gameOver.png */; };
 		CCDC3DA328B13C400088CBA9 /* whackMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCDC3D9528B13C400088CBA9 /* whackMask@2x.png */; };
 		CCDC3DA428B13C400088CBA9 /* whackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCDC3D9628B13C400088CBA9 /* whackBackground@2x.png */; };
+		CCDC3DA628B1DE1D0088CBA9 /* SmokeParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = CCDC3DA528B1DE1D0088CBA9 /* SmokeParticles.sks */; };
+		CCDC3DA828B1E3D50088CBA9 /* MudParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = CCDC3DA728B1E3D50088CBA9 /* MudParticles.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		CCDC3D9428B13C400088CBA9 /* gameOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameOver.png; sourceTree = "<group>"; };
 		CCDC3D9528B13C400088CBA9 /* whackMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whackMask@2x.png"; sourceTree = "<group>"; };
 		CCDC3D9628B13C400088CBA9 /* whackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whackBackground@2x.png"; sourceTree = "<group>"; };
+		CCDC3DA528B1DE1D0088CBA9 /* SmokeParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticles.sks; sourceTree = "<group>"; };
+		CCDC3DA728B1E3D50088CBA9 /* MudParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MudParticles.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 			children = (
 				CC3E0A2C28AE672B00D435BC /* AppDelegate.swift */,
 				CC3E0A2E28AE672B00D435BC /* GameScene.sks */,
+				CCDC3DA528B1DE1D0088CBA9 /* SmokeParticles.sks */,
 				CC3E0A3228AE672B00D435BC /* GameScene.swift */,
 				CC3E0A3428AE672B00D435BC /* GameViewController.swift */,
 				CC3E0A5428AE6BBF00D435BC /* WhackSlot.swift */,
@@ -96,6 +101,7 @@
 				CC3E0A3928AE672C00D435BC /* Assets.xcassets */,
 				CC3E0A3B28AE672C00D435BC /* LaunchScreen.storyboard */,
 				CCDC3D8828B13C400088CBA9 /* Content */,
+				CCDC3DA728B1E3D50088CBA9 /* MudParticles.sks */,
 			);
 			path = Project14;
 			sourceTree = "<group>";
@@ -188,9 +194,11 @@
 				CCDC3DA228B13C400088CBA9 /* gameOver.png in Resources */,
 				CC3E0A2F28AE672B00D435BC /* GameScene.sks in Resources */,
 				CCDC3D9C28B13C400088CBA9 /* gameOver@2x.png in Resources */,
+				CCDC3DA628B1DE1D0088CBA9 /* SmokeParticles.sks in Resources */,
 				CC3E0A3A28AE672C00D435BC /* Assets.xcassets in Resources */,
 				CCDC3D9A28B13C400088CBA9 /* whackBackground.png in Resources */,
 				CCDC3D9D28B13C400088CBA9 /* whackHole.png in Resources */,
+				CCDC3DA828B1E3D50088CBA9 /* MudParticles.sks in Resources */,
 				CCDC3DA428B13C400088CBA9 /* whackBackground@2x.png in Resources */,
 				CCDC3D9928B13C400088CBA9 /* whackMask.png in Resources */,
 				CCDC3D9E28B13C400088CBA9 /* penguinEvil@2x.png in Resources */,
