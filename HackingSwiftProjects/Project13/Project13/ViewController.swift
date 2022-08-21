@@ -112,6 +112,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         if let cgimg = context.createCGImage(currentFilter.outputImage!, from: currentFilter.outputImage!.extent) {
             let processedImage = UIImage(cgImage: cgimg)
             self.imageView.image = processedImage
+            self.imageView.alpha = 0
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
+                self.imageView.alpha = 1
+            })
         }
         
         
