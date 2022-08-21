@@ -98,7 +98,6 @@ class ViewController: UIViewController {
             submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
             submit.heightAnchor.constraint(equalToConstant: 44),
             
-a
             
             buttonsView.widthAnchor.constraint(equalToConstant: 750),
             buttonsView.heightAnchor.constraint(equalToConstant: 320),
@@ -138,7 +137,12 @@ a
         guard let buttonTitle = sender.titleLabel?.text else { return }
         currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
         activatedButtons.append(sender)
-        sender.isHidden = true
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+            sender.alpha = 0
+        }) { finished in
+        }
+        
     }
     
     @objc func submitTapped(_ sender: UIButton) {
@@ -170,7 +174,10 @@ a
             score -= 1
             
             for btn in activatedButtons {
-                btn.isHidden = false
+                UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+                    btn.alpha = 1
+                }) { finished in
+                }
             }
             activatedButtons.removeAll()
             currentAnswer.text = ""
@@ -185,7 +192,10 @@ a
         currentAnswer.text = ""
         
         for btn in activatedButtons {
-            btn.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+                btn.alpha = 1
+            }) { finished in
+            }
         }
         
         activatedButtons.removeAll()
@@ -242,7 +252,10 @@ a
         loadLevel()
         
         for btn in letterButtons {
-            btn.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+                btn.alpha = 1
+            }) { finished in
+            }
         }
     }
     
@@ -250,7 +263,10 @@ a
         loadLevel()
         
         for btn in letterButtons {
-            btn.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+                btn.alpha = 1
+            }) { finished in
+            }
         }
     }
 }
