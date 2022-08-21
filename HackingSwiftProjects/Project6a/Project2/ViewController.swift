@@ -52,6 +52,12 @@ class ViewController: UIViewController {
     @IBAction func buttonTapped(_ sender: UIButton) {
         let selectedFlag = countries[sender.tag].uppercased()
         
+        UIView.animate(withDuration: 0.05, delay: 0, options: [], animations: {
+            sender.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+        }) { isFinished in
+            sender.transform = .identity
+        }
+        
         if sender.tag == correctAnswer {
             alertTitle = "Correct"
             score += 1
