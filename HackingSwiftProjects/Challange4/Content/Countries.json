@@ -1,0 +1,16 @@
+{
+  "results":[
+      {
+        "name": "US",
+        "capital": "Washington",
+        "population": 100000000,
+        "currency": "Dollar"
+      },
+      {
+        "name": "US",
+        "capital": "Washington",
+        "population": 100000000,
+        "currency": "Dollar"
+      }
+  ]
+}
