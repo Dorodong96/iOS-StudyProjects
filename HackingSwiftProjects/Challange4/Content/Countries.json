@@ -3,14 +3,16 @@
       {
         "name": "US",
         "capital": "Washington",
-        "population": 100000000,
-        "currency": "Dollar"
+        "population": "331 million",
+        "currency": "Dollar",
+        "description": "The United States of America (U.S.A. or USA), commonly known as the United States (U.S. or US) or America, is a transcontinental country primarily located in North America. It consists of 50 states, a federal district, five major unincorporated territories, nine minor outlying islands, and 326 Indian reservations with limited sovereignty."
       },
       {
-        "name": "US",
-        "capital": "Washington",
-        "population": 100000000,
-        "currency": "Dollar"
+        "name": "South Korea",
+        "capital": "Seoul",
+        "population": "50 million",
+        "currency": "Won",
+        "description": "South Korea, officially the Republic of Korea (ROK), is a country in East Asia, constituting the southern part of the Korean Peninsula and sharing a land border with North Korea. Its western border is formed by the Yellow Sea, while its eastern border is defined by the Sea of Japan. South Korea claims to be the sole legitimate government of the entire peninsula and adjacent islands. It has a population of 51.75 million, of which roughly half live in the Seoul Capital Area, the fifth largest metropolis in the world."
       }
   ]
 }

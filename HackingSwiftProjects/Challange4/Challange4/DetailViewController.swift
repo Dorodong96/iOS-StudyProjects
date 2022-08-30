@@ -9,6 +9,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet var flagImage: UIImageView!
+    @IBOutlet var capitalLabel: UILabel!
+    @IBOutlet var populationLabel: UILabel!
+    @IBOutlet var currencyLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
+    
     var selectedCountry: Country?
     
     override func viewDidLoad() {
@@ -17,6 +23,12 @@ class DetailViewController: UIViewController {
         guard let selectedCountry = selectedCountry else { return }
 
         title = selectedCountry.name
+        flagImage.image = UIImage(named: "\(selectedCountry.name)")
+        
+        capitalLabel.text = "Capital: \(selectedCountry.capital)"
+        populationLabel.text = "Population: \(selectedCountry.population)"
+        currencyLabel.text = "Currency: \(selectedCountry.currency)"
+        descriptionLabel.text = "\(selectedCountry.description)"
     }
     
     /*

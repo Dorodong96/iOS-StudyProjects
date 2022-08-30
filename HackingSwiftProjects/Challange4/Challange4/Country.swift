@@ -10,6 +10,7 @@ import Foundation
 class Country: Codable {
     var name: String
     var capital: String
-    var population: Int
+    var population: String
     var currency: String
+    var description: String
 }

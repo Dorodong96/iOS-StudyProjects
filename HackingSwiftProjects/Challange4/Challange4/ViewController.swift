@@ -18,7 +18,6 @@ class ViewController: UITableViewController {
         
         if let path = Bundle.main.path(forResource: "Countries", ofType: "json") {
             // contentsOf로 Data Object를 만들어 항목을 반환 (하지만 인터넷 문제 등의 원인으로 에러 발생 가능 -> try?)
-            print(path)
             if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
                 // WE ARE OK TO PARSE
                 parse(json: data)
@@ -31,7 +30,7 @@ class ViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.countries.count
     }
 
@@ -39,12 +38,14 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Country", for: indexPath)
         
         cell.textLabel?.text = countries[indexPath.row].name
+        print(countries[indexPath.row].name)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
             vc.selectedCountry = countries[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
