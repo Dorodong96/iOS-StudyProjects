@@ -27,6 +27,39 @@ class ViewController: UIViewController {
 //        mapView.addAnnotation(rome)
 //        mapView.addAnnotation(washington)
         mapView.addAnnotations([london, oslo, paris, rome, washington, seoul])
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(selectOption))
+    }
+    
+    @objc func selectOption() {
+        let ac = UIAlertController(title: "Select Map Type Option", message: nil, preferredStyle: .actionSheet)
+        
+        ac.addAction(UIAlertAction(title: "standard", style: .default) { _ in
+            self.mapView.mapType = .standard
+        })
+        
+        ac.addAction(UIAlertAction(title: "hybrid", style: .default) { _ in
+            self.mapView.mapType = .hybrid
+        })
+        
+        ac.addAction(UIAlertAction(title: "hybridFlyover", style: .default) { _ in
+            self.mapView.mapType = .hybridFlyover
+        })
+        
+        ac.addAction(UIAlertAction(title: "mutedStandard", style: .default) { _ in
+            self.mapView.mapType = .mutedStandard
+        })
+        
+        ac.addAction(UIAlertAction(title: "satellite", style: .default) { _ in
+            self.mapView.mapType = .satellite
+        })
+        
+        ac.addAction(UIAlertAction(title: "satelliteFlyover", style: .default) { _ in
+            self.mapView.mapType = .satelliteFlyover
+        })
+        
+        present(ac, animated: true)
+        
     }
 
 }
@@ -41,12 +74,13 @@ extension ViewController: MKMapViewDelegate {
         let identifier = "Capital"
         
         // 3
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
         
         if annotationView == nil {
             // 4
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
+            annotationView?.markerTintColor = .systemCyan
             
             // 5
             let btn = UIButton(type: .detailDisclosure)
@@ -60,14 +94,25 @@ extension ViewController: MKMapViewDelegate {
     }
     
     // alert를 통해 세부 정보 표시
+//    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//        guard let capital = view.annotation as? Capital else { return }
+//        let placeName = capital.title
+//        let placeInfo = capital.info
+//
+//        let ac = UIAlertController(title: placeName, message: placeInfo, preferredStyle: .alert)
+//        ac.addAction(UIAlertAction(title: "OK", style: .default))
+//        present(ac, animated: true)
+//    }
+    
+    // WebView - WikiPedia 찾기
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let capital = view.annotation as? Capital else { return }
         let placeName = capital.title
-        let placeInfo = capital.info
         
-        let ac = UIAlertController(title: placeName, message: placeInfo, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "WebView") as? WebViewController {
+            vc.url = URL(string: "https://en.wikipedia.org/wiki/\(placeName ?? "")")
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
