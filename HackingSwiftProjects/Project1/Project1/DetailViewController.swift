@@ -30,6 +30,7 @@ class DetailViewController: UIViewController {
         } else {
             print("There is no image")
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
