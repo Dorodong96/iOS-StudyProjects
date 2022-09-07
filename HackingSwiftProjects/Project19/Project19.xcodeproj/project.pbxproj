@@ -18,6 +18,7 @@
 		B98482E928C4F2A20087457C /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98482E828C4F2A20087457C /* ActionViewController.swift */; };
 		B98482EC28C4F2A20087457C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B98482EA28C4F2A20087457C /* MainInterface.storyboard */; };
 		B98482F028C4F2A20087457C /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B98482E128C4F2A20087457C /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B98482F628C657710087457C /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = B98482F528C657710087457C /* Action.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B98482E828C4F2A20087457C /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		B98482EB28C4F2A20087457C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B98482ED28C4F2A20087457C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B98482F528C657710087457C /* Action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = Action.js; path = Project19/Action.js; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				B98482E628C4F2A20087457C /* Media.xcassets */,
+				B98482F528C657710087457C /* Action.js */,
 				B98482E828C4F2A20087457C /* ActionViewController.swift */,
 				B98482EA28C4F2A20087457C /* MainInterface.storyboard */,
 				B98482ED28C4F2A20087457C /* Info.plist */,
@@ -223,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B98482F628C657710087457C /* Action.js in Resources */,
 				B98482E728C4F2A20087457C /* Media.xcassets in Resources */,
 				B98482EC28C4F2A20087457C /* MainInterface.storyboard in Resources */,
 			);
