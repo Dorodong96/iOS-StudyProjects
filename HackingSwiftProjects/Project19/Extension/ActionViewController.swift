@@ -16,10 +16,13 @@ class ActionViewController: UIViewController {
     var pageTitle = ""
     var pageURL = ""
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(selection))
         
         // Keyboard with notificationCenter
         let notificationCenter = NotificationCenter.default
@@ -58,8 +61,22 @@ class ActionViewController: UIViewController {
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: UTType.propertyList.identifier)
         item.attachments = [customJavaScript]
         
+        defaults.set(customJavaScript, forKey: pageURL)
         extensionContext?.completeRequest(returningItems: [item])
 
+    }
+    
+    // textView에 선택한 prewritten example을 주는 alert
+    @objc func selection() {
+        let ac = UIAlertController(title: "Examples", message: "Select prewritten examples", preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "Title Alert", style: .default, handler: { [weak self] _ in
+            self?.script.text = "alert(document.title)"
+        }))
+        ac.addAction(UIAlertAction(title: "URL Alert", style: .default, handler: { [weak self] _ in
+            self?.script.text = "alert(document.URL)"
+        }))
+        present(ac, animated: true)
     }
     
     // 키보드 레이아웃을 위한 함수
