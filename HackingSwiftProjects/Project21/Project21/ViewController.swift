@@ -10,6 +10,8 @@ import UserNotifications
 
 class ViewController: UIViewController {
 
+    var delayFlag = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +37,12 @@ class ViewController: UIViewController {
     @objc func scheduleLocal() {
         registerCategories()
         
+        var timeInterval = 5.0
+        
+        if delayFlag {
+           timeInterval = 86400
+        }
+        
         let center = UNUserNotificationCenter.current()
         
         let content = UNMutableNotificationContent()
@@ -48,13 +56,11 @@ class ViewController: UIViewController {
         dateComponents.hour = 10
         dateComponents.minute = 30
         // let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
     }
-
-
 }
 
 extension ViewController: UNUserNotificationCenterDelegate {
@@ -64,13 +70,21 @@ extension ViewController: UNUserNotificationCenterDelegate {
         
         if let customData = userInfo["customData"] as? String {
             print("Custom data received: \(customData)")
+            print("Action Identifier: \(response.actionIdentifier.description)")
             
             switch response.actionIdentifier {
             case UNNotificationDefaultActionIdentifier:
+                showAlert()
                 print("Default identifier") // 사용자가 unlock 한 경우
                 
             case "show":
+                showAlert()
                 print("Show more Information") // show more information
+            
+            case "delay":
+                showAlert()
+                delayFlag = true
+                scheduleLocal()
                 
             default:
                 break
@@ -85,9 +99,16 @@ extension ViewController: UNUserNotificationCenterDelegate {
         center.delegate = self
         
         let show = UNNotificationAction(identifier: "show", title: "Tell me more...", options: .foreground)
-        let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
+        let delay = UNNotificationAction(identifier: "delay", title: "Remind me later", options: .foreground)
+        let category = UNNotificationCategory(identifier: "alarm", actions: [delay, show], intentIdentifiers: [])
         
         center.setNotificationCategories([category])
+    }
+    
+    func showAlert() {
+        let ac = UIAlertController(title: "Done", message: "Your Choice was perfect", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
 }
 
