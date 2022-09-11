@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ViewController: UIViewController {
     @IBOutlet weak var button1: UIButton!
@@ -16,6 +17,10 @@ class ViewController: UIViewController {
     var score = 0
     var correctAnswer = 0
     var counter = 0
+    
+    override func viewDidAppear(_ animated: Bool) {
+        scheduleLocal()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +36,9 @@ class ViewController: UIViewController {
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
         askQuestion()
+        
+        // related Notification methods
+        registerLocal()
     }
     
     func askQuestion(action: UIAlertAction! = nil) {
@@ -81,5 +89,76 @@ class ViewController: UIViewController {
         }
     }
     
+}
+
+// MARK: extension and related methods for Notification Center
+extension ViewController: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let customData = userInfo["customData"] as? String {
+            print("Custom Data received \(customData)")
+            
+            switch response.actionIdentifier {
+            case UNNotificationDefaultActionIdentifier:
+                print("Default identifier")
+            
+            case "show":
+                print("User pressed Show button")
+            
+            default:
+                break
+            }
+        }
+        
+        completionHandler()
+    }
+    
+    func registerLocal() {
+        let center = UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, Error) in
+            if granted {
+                print("Thanks for permission!")
+                //self.scheduleLocal()
+            } else {
+                print("OHKAY!")
+            }
+        }
+        
+        center.removeAllPendingNotificationRequests()
+    }
+    
+    func scheduleLocal() {
+        registerCategories()
+        
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "It's time to game!"
+        content.body = "Your game's best score is waiting to be updated!"
+        content.categoryIdentifier = "alarm"
+        content.userInfo = ["customData": "fizzbuzz"]
+        content.sound = UNNotificationSound.default
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = 10
+        dateComponents.minute = 0
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        center.add(request)
+    }
+    
+    func registerCategories() {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        
+        let show = UNNotificationAction(identifier: "show", title: "Got ya!", options: .foreground)
+        let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
+        
+        center.setNotificationCategories([category])
+    }
 }
 
