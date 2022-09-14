@@ -1,2 +1,2 @@
-# iOS_Development_Bootcamp
- Repository for Udemy - The Complete iOS App Development Bootcamp
+# iOS_StudyProjects
+ Repository for Udemy, HackingWithSwift - iOS App Development Study
