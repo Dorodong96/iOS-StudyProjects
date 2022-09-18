@@ -6,19 +6,28 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class ViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
-    var images : [UIImage] = []
+    var images: [UIImage] = []
+    
+    var peerID = MCPeerID(displayName: UIDevice.current.name) // 각 사용자 구분
+    var mcSession: MCSession? // multiper connectivity 다루기
+    var mcAdvertiserAssistant: MCAdvertiserAssistant?  // session 만들 때 다른 사람들에게 우리 존재를 알리고 초대 다루기
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Selfie Share"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        
+        mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
+        mcSession?.delegate = self
     }
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
     
@@ -46,6 +55,98 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         
         images.insert(image, at: 0)
         collectionView.reloadData()
+        
+        // 1. active session 체크
+        guard let mcSession = mcSession else { return }
+        
+        // 2. 보낼 peer가 주변에 많은지 체크
+        if mcSession.connectedPeers.count > 0 {
+            // 3. 새로운 image를 Data로 가겠지
+            if let imageData = image.pngData() {
+                // 4.모든 peer에게 전달
+                do {
+                    try mcSession.send(imageData, toPeers: mcSession.connectedPeers, with: .reliable)
+                } catch {
+                    // 5. error 메시지
+                    let ac = UIAlertController(title: "Send Error", message: error.localizedDescription, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(ac, animated: true)
+                }
+            }
+        }
+        
+    }
+    
+    // 다른 사람들이 Session을 어떻게 사용할지 옵션 제공
+    @objc func showConnectionPrompt() {
+        let ac = UIAlertController(title: "Connect to others", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Host a session", style: .default, handler: startHosting))
+        ac.addAction(UIAlertAction(title: "Join a session", style: .default, handler: joinSession))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    func startHosting(action: UIAlertAction) {
+        guard let mcSession = mcSession else { return }
+        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hws-project25", discoveryInfo: nil, session: mcSession)
+        mcAdvertiserAssistant?.start()
+    }
+    
+    func joinSession(actin: UIAlertAction) {
+        guard let mcSession = mcSession else { return }
+        let mcBrowser = MCBrowserViewController(serviceType: "hws-project25", session: mcSession)
+        mcBrowser.delegate = self
+        present(mcBrowser, animated: true)
     }
 }
 
+extension ViewController: MCSessionDelegate{
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) { // Session의 상태에 따른 액션
+        switch state {
+        case .connected:
+            print("Connected: \(peerID.displayName)")
+            
+        case .connecting:
+            print("Connecting: \(peerID.displayName)")
+        
+        case .notConnected:
+            print("Not Connected: \(peerID.displayName)")
+            
+        @unknown default: // 미래의 다른 케이스 상황을 대비해 @unknown 적용
+            print("Unknown state received: \(peerID.displayName)")
+        }
+    }
+    
+    // 중요: session을 통해 데이터를 받았을 때 호출
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        DispatchQueue.main.async { [weak self] in // UI부분은 메인스레드에서
+            if let image = UIImage(data: data) {
+                self?.images.insert(image, at: 0)
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+    }
+    
+    
+}
+
+extension ViewController: MCBrowserViewControllerDelegate { // 프로토콜 conform 이후 구현해야 하는 메소드는 별로 하는 기능은 없음
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
+    }
+    
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
+    }
+    
+    
+}
