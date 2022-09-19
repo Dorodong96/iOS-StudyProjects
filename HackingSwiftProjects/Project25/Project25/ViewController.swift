@@ -14,7 +14,10 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
     
     var peerID = MCPeerID(displayName: UIDevice.current.name) // 각 사용자 구분
     var mcSession: MCSession? // multiper connectivity 다루기
-    var mcAdvertiserAssistant: MCAdvertiserAssistant?  // session 만들 때 다른 사람들에게 우리 존재를 알리고 초대 다루기
+    //var mcAdvertiserAssistant: MCAdvertiserAssistant?  // session 만들 때 다른 사람들에게 우리 존재를 알리고 초대 다루기 -> 더이상 사용 X
+    
+    var advertiser: MCNearbyServiceAdvertiser!
+    var browser: MCNearbyServiceBrowser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,13 +89,19 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         present(ac, animated: true)
     }
     
+    // Hosting 시작
     func startHosting(action: UIAlertAction) {
-        guard let mcSession = mcSession else { return }
-        mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hws-project25", discoveryInfo: nil, session: mcSession)
-        mcAdvertiserAssistant?.start()
+        advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "hws-project25")
+        advertiser.delegate = self
+        advertiser.startAdvertisingPeer()
     }
     
+    // 호스팅된 세션에 참여
     func joinSession(actin: UIAlertAction) {
+        browser = MCNearbyServiceBrowser(peer: peerID, serviceType: "hws-project25")
+        browser.delegate = self
+        browser.startBrowsingForPeers()
+        
         guard let mcSession = mcSession else { return }
         let mcBrowser = MCBrowserViewController(serviceType: "hws-project25", session: mcSession)
         mcBrowser.delegate = self
@@ -143,10 +152,33 @@ extension ViewController: MCBrowserViewControllerDelegate { // 프로토콜 conf
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
         dismiss(animated: true)
     }
-    
+
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
         dismiss(animated: true)
     }
+}
+
+extension ViewController: MCNearbyServiceAdvertiserDelegate {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        let ac = UIAlertController(title: "Project25", message: "'\(peerID.displayName)' wants to connect", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Accept", style: .default, handler: { [weak self] _ in
+            invitationHandler(true, self?.mcSession)
+        }))
+        ac.addAction(UIAlertAction(title: "Decline", style: .cancel, handler: { _ in
+            invitationHandler(false, nil)
+        }))
+        present(ac, animated: true)
+    }
+
+}
+
+extension ViewController: MCNearbyServiceBrowserDelegate {
+    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+        // peerID를 찾았을 때
+    }
     
+    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        // peerID를 잃었을 때
+    }
     
 }
