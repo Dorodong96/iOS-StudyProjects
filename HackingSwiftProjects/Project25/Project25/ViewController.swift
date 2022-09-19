@@ -23,8 +23,14 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         super.viewDidLoad()
         
         title = "Selfie Share"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        let listButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSessions))
+        let camerButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+        let textButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(importText))
+        
+        navigationItem.leftBarButtonItems = [addButton, listButton]
+        navigationItem.rightBarButtonItems = [camerButton, textButton]
         
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession?.delegate = self
@@ -49,6 +55,53 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
+    }
+    
+    @objc func showSessions() {
+        let sessions = mcSession?.connectedPeers
+        let ac = UIAlertController(title: "Session List", message: "", preferredStyle: .actionSheet)
+        if let peers = sessions {
+            for peer in peers {
+                ac.addAction(UIAlertAction(title: "\(peer.displayName)", style: .default))
+            }
+        }
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    @objc func importText() {
+        let ac = UIAlertController(title: "Type your message", message: "", preferredStyle: .alert)
+        ac.addTextField { (textField) in
+            textField.placeholder = "type some messages"
+        }
+        ac.addAction(UIAlertAction(title: "Send", style: .default, handler: { _ in
+            let textFieldContent = ac.textFields![0] as UITextField
+            self.sendText(text: textFieldContent.text)
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    func sendText(text: String?) {
+        // 1. active session 체크
+        guard let mcSession = mcSession else { return }
+        
+        // 2. 보낼 peer가 주변에 많은지 체크
+        if mcSession.connectedPeers.count > 0 {
+            // 3. 새로운 text를 Data로 변환 후 전송
+            if let textForData = text {
+                let textData = Data(textForData.utf8)
+                // 4.모든 peer에게 전달
+                do {
+                    try mcSession.send(textData, toPeers: mcSession.connectedPeers, with: .reliable)
+                } catch {
+                    // 5. error 메시지
+                    let ac = UIAlertController(title: "Send Error", message: error.localizedDescription, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(ac, animated: true)
+                }
+            }
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -110,6 +163,7 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
 }
 
 extension ViewController: MCSessionDelegate{
+    
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) { // Session의 상태에 따른 액션
         switch state {
         case .connected:
@@ -132,6 +186,15 @@ extension ViewController: MCSessionDelegate{
             if let image = UIImage(data: data) {
                 self?.images.insert(image, at: 0)
                 self?.collectionView.reloadData()
+            } else {
+                let text = String(decoding: data, as: UTF8.self)
+                
+                let ac = UIAlertController(title: "Message", message: "\(text)", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Close", style: .cancel))
+                ac.addAction(UIAlertAction(title: "Reply", style: .default) { _ in
+                    self?.importText()
+                })
+                self?.present(ac, animated: true)
             }
         }
     }
@@ -179,6 +242,9 @@ extension ViewController: MCNearbyServiceBrowserDelegate {
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         // peerID를 잃었을 때
+        let ac = UIAlertController(title: "Lost Peer!", message: "\(peerID.displayName)is Disconnected", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
     
 }
