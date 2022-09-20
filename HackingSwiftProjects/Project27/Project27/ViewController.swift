@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     @IBAction func redrawTapped(_ sender: Any) {
         currentDrawType += 1
         
-        if currentDrawType > 5 {
+        if currentDrawType > 7 {
             currentDrawType = 0
         }
         
@@ -44,6 +44,12 @@ class ViewController: UIViewController {
             
         case 5:
             drawImagesAndText()
+            
+        case 6:
+            drawEmoji()
+            
+        case 7:
+            writeTwin()
             
         default:
             break
@@ -182,5 +188,31 @@ class ViewController: UIViewController {
         }
         // 6. 완성된 결과로 이미지 뷰 업데이트
         imageView.image = img
+    }
+    
+    func drawEmoji() { //😀
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let img = renderer.image { ctx in
+            let rectangle = CGRect(x: 0, y: 0, width: 512, height: 512).insetBy(dx: 5, dy: 5)
+            let rectangleSmall = CGRect(x: 100, y: 100, width: 100, height: 100).insetBy(dx: 5, dy: 5)
+            let rectangleSmall2 = CGRect(x: 312, y: 100, width: 100, height: 100).insetBy(dx: 5, dy: 5)
+            
+            ctx.cgContext.setFillColor(UIColor.yellow.cgColor)
+            ctx.cgContext.setStrokeColor(UIColor.black.cgColor)
+            ctx.cgContext.setLineWidth(10)
+            
+            ctx.cgContext.addEllipse(in: rectangle)
+            ctx.cgContext.addEllipse(in: rectangleSmall)
+            ctx.cgContext.addEllipse(in: rectangleSmall2)
+            // Core Graphics에서 path를 기반으로 rendering 수행
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+        
+        imageView.image = img
+    }
+    
+    func writeTwin() {
+        
     }
 }
