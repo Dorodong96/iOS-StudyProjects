@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -15,6 +16,10 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(hideCell))
+        
+        collectionView.isHidden = true
+        triggerAuthentication()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -125,6 +130,38 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+    }
+    
+    func triggerAuthentication() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identify yourself"
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self?.collectionView.isHidden = false
+                    } else {
+                        let ac = UIAlertController(title: "Authentication failed", message: "Your could not be verified; Try Again.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "Close", style: .cancel))
+                        self?.present(ac, animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func hideCell() {
+        collectionView.isHidden = true
+        
+        let ac = UIAlertController(title: "Lock Enabled!", message: "Do you want to unlock the album?", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Yes", style: .default) { _ in
+            self.triggerAuthentication()
+        })
+        ac.addAction(UIAlertAction(title: "No", style: .cancel))
+        present(ac, animated: true)
     }
 }
 
