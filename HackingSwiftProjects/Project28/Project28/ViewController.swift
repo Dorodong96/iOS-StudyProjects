@@ -11,6 +11,8 @@ import LocalAuthentication
 class ViewController: UIViewController {
 
     @IBOutlet var secret: UITextView!
+    let password = "12345"
+    var input = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,8 @@ class ViewController: UIViewController {
         
         // norification이 나타날 때 자동으로 save
         notificationCenter.addObserver(self, selector: #selector(saveSecretMessage), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveSecretMessage))
     }
 
     @IBAction func authenticateTapped(_ sender: Any) {
@@ -38,8 +42,17 @@ class ViewController: UIViewController {
                     if success {
                         self?.unlockSecretMessage()
                     } else {
-                        let ac = UIAlertController(title: "Authentication failed", message: "Your could not be verified; pleas try again.", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        let ac = UIAlertController(title: "Authentication failed", message: "Your could not be verified; please write password.", preferredStyle: .alert)
+                        ac.addTextField { textField in
+                            textField.isSecureTextEntry = true
+                        }
+                        ac.addAction(UIAlertAction(title: "Send", style: .default) { _ in
+                            if let textFieldInput = ac.textFields?[0].text {
+                                KeychainWrapper.standard.set(textFieldInput, forKey: "Input Password")
+                                self?.checkPassword()
+                            }
+                        })
+                        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                         self?.present(ac, animated: true)
                     }
                 }
@@ -86,6 +99,18 @@ class ViewController: UIViewController {
         secret.resignFirstResponder()
         secret.isHidden = true
         title = "Nothing to see here"
+    }
+    
+    func checkPassword() {
+        if let passwordResult = KeychainWrapper.standard.string(forKey: "Input Password") {
+            if passwordResult == password {
+                unlockSecretMessage()
+            }
+        } else {
+            let ac = UIAlertController(title: "Authentication failed", message: "Your could not be verified", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true)
+        }
     }
 }
 
