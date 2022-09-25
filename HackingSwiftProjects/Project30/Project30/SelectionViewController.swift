@@ -67,7 +67,7 @@ class SelectionViewController: UITableViewController {
 		let currentImage = items[indexPath.row % items.count]
 		let imageRootName = currentImage.replacingOccurrences(of: "Large", with: "Thumb")
 		let path = Bundle.main.path(forResource: imageRootName, ofType: nil)!
-		let original = UIImage(contentsOfFile: path)!
+        let original = UIImage(contentsOfFile: path)
         
 		// let renderer = UIGraphicsImageRenderer(size: original.size)
         
@@ -88,7 +88,7 @@ class SelectionViewController: UITableViewController {
 			ctx.cgContext.clip()
 
 			// original.draw(at: CGPoint.zero)
-            original.draw(in: renderRect)
+            original?.draw(in: renderRect)
 		}
 
 		cell.imageView?.image = rounded
