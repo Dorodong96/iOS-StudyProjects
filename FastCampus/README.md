@@ -6,7 +6,7 @@
 
 >  ### Ch 01. 명언 생성기 앱 만들기
 >
-> * Autolayout
+> * Autolayout(Content Hugging, Compression Resistance)
 > * IBOutlet & IBAction
 > * 수강일: 2022.09.26.
 
