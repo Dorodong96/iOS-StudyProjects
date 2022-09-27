@@ -16,9 +16,12 @@
 
 ## Part 3. Intermediate
 
->  ### Ch 01. Sptify 스타일 로그인 화면 구현하기
+>  ### Ch 01. Spotify 스타일 로그인 화면 구현하기
 >
-> * 
+>  * Backend - Frontend 데이터 흐름
+>  * Firebase / Firebase Authentication
+>  * 로그인 / 로그아웃
+>  * 수강일: 2022.09.26.
 
 ## Part 4. Upper Intermediate
 
