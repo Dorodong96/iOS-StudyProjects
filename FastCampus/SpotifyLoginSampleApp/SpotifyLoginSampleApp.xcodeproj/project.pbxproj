@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B86CE681AEF83534ACFD117 /* Pods_SpotifyLoginSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F74E6CA98D043FE218E1D52 /* Pods_SpotifyLoginSampleApp.framework */; };
+		B9151A6E28E35687002D35A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9151A6D28E35687002D35A7 /* GoogleService-Info.plist */; };
 		B968DE4D28E2ACDB0049D1CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B968DE4C28E2ACDB0049D1CD /* AppDelegate.swift */; };
 		B968DE4F28E2ACDB0049D1CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B968DE4E28E2ACDB0049D1CD /* SceneDelegate.swift */; };
 		B968DE5428E2ACDB0049D1CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B968DE5228E2ACDB0049D1CD /* Main.storyboard */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46B14AC8C13E1BD2108F75A1 /* Pods-SpotifyLoginSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotifyLoginSampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SpotifyLoginSampleApp/Pods-SpotifyLoginSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		8F74E6CA98D043FE218E1D52 /* Pods_SpotifyLoginSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotifyLoginSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0C7D50562EFAC04814668C5 /* Pods-SpotifyLoginSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotifyLoginSampleApp.release.xcconfig"; path = "Target Support Files/Pods-SpotifyLoginSampleApp/Pods-SpotifyLoginSampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		B9151A6D28E35687002D35A7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B968DE4928E2ACDB0049D1CD /* SpotifyLoginSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyLoginSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B968DE4C28E2ACDB0049D1CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B968DE4E28E2ACDB0049D1CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +34,7 @@
 		B968DE6028E2AD0A0049D1CD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B96A86CF28E3116100FDBDD3 /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
 		B96A86D128E335CE00FDBDD3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		CCF40F9D28E406CC00A956CE /* SpotifyLoginSampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpotifyLoginSampleApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +42,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B86CE681AEF83534ACFD117 /* Pods_SpotifyLoginSampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B224A73EB4D2FA8AEB1223DC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				46B14AC8C13E1BD2108F75A1 /* Pods-SpotifyLoginSampleApp.debug.xcconfig */,
+				A0C7D50562EFAC04814668C5 /* Pods-SpotifyLoginSampleApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B968DE4028E2ACDB0049D1CD = {
 			isa = PBXGroup;
 			children = (
 				B968DE4B28E2ACDB0049D1CD /* SpotifyLoginSampleApp */,
 				B968DE4A28E2ACDB0049D1CD /* Products */,
+				B224A73EB4D2FA8AEB1223DC /* Pods */,
+				CAAAAF8B04FF8556FB44AC8A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,17 +79,27 @@
 		B968DE4B28E2ACDB0049D1CD /* SpotifyLoginSampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				CCF40F9D28E406CC00A956CE /* SpotifyLoginSampleApp.entitlements */,
 				B968DE4C28E2ACDB0049D1CD /* AppDelegate.swift */,
 				B968DE4E28E2ACDB0049D1CD /* SceneDelegate.swift */,
 				B96A86CF28E3116100FDBDD3 /* EnterEmailViewController.swift */,
-				B968DE5228E2ACDB0049D1CD /* Main.storyboard */,
 				B96A86D128E335CE00FDBDD3 /* MainViewController.swift */,
 				B968DE6028E2AD0A0049D1CD /* LoginViewController.swift */,
 				B968DE5528E2ACDC0049D1CD /* Assets.xcassets */,
+				B968DE5228E2ACDB0049D1CD /* Main.storyboard */,
 				B968DE5728E2ACDC0049D1CD /* LaunchScreen.storyboard */,
 				B968DE5A28E2ACDC0049D1CD /* Info.plist */,
+				B9151A6D28E35687002D35A7 /* GoogleService-Info.plist */,
 			);
 			path = SpotifyLoginSampleApp;
+			sourceTree = "<group>";
+		};
+		CAAAAF8B04FF8556FB44AC8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F74E6CA98D043FE218E1D52 /* Pods_SpotifyLoginSampleApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,9 +109,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B968DE5D28E2ACDC0049D1CD /* Build configuration list for PBXNativeTarget "SpotifyLoginSampleApp" */;
 			buildPhases = (
+				48D49CA5FD39AA464ABD4F10 /* [CP] Check Pods Manifest.lock */,
 				B968DE4528E2ACDB0049D1CD /* Sources */,
 				B968DE4628E2ACDB0049D1CD /* Frameworks */,
 				B968DE4728E2ACDB0049D1CD /* Resources */,
+				B8DD2D3FBEC796EC40CF980D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,12 +163,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				B968DE5928E2ACDC0049D1CD /* LaunchScreen.storyboard in Resources */,
+				B9151A6E28E35687002D35A7 /* GoogleService-Info.plist in Resources */,
 				B968DE5628E2ACDC0049D1CD /* Assets.xcassets in Resources */,
 				B968DE5428E2ACDB0049D1CD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		48D49CA5FD39AA464ABD4F10 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpotifyLoginSampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8DD2D3FBEC796EC40CF980D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpotifyLoginSampleApp/Pods-SpotifyLoginSampleApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpotifyLoginSampleApp/Pods-SpotifyLoginSampleApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SpotifyLoginSampleApp/Pods-SpotifyLoginSampleApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B968DE4528E2ACDB0049D1CD /* Sources */ = {
@@ -290,9 +364,11 @@
 		};
 		B968DE5E28E2ACDC0049D1CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46B14AC8C13E1BD2108F75A1 /* Pods-SpotifyLoginSampleApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SpotifyLoginSampleApp/SpotifyLoginSampleApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BQSHS2D2FB;
@@ -303,6 +379,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,9 +395,11 @@
 		};
 		B968DE5F28E2ACDC0049D1CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0C7D50562EFAC04814668C5 /* Pods-SpotifyLoginSampleApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SpotifyLoginSampleApp/SpotifyLoginSampleApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BQSHS2D2FB;
@@ -331,6 +410,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

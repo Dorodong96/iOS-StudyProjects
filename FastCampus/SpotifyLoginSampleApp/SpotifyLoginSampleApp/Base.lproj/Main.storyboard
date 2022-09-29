@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Dmf-yh-hli">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -210,19 +211,19 @@
         <!--Main View Controller-->
         <scene sceneID="97U-jL-PMJ">
             <objects>
-                <viewController id="Ebw-L6-E5d" customClass="MainViewController" customModule="SpotifyLoginSampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="Ebw-L6-E5d" customClass="MainViewController" customModule="SpotifyLoginSampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8I1-ze-UzC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="환영합니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bah-sr-Ekg">
-                                <rect key="frame" x="148.66666666666666" y="416.66666666666669" width="93" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="환영합니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bah-sr-Ekg">
+                                <rect key="frame" x="137.66666666666666" y="413.66666666666669" width="114.66666666666666" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toD-bg-nac">
-                                <rect key="frame" x="151.66666666666666" y="460.66666666666669" width="87" height="36"/>
+                                <rect key="frame" x="151.66666666666666" y="519.33333333333337" width="87" height="36"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="로그아웃">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
@@ -232,18 +233,31 @@
                                     <action selector="logoutButtonTapped:" destination="Ebw-L6-E5d" eventType="touchUpInside" id="dJW-IO-lDg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Cv-DJ-w7D">
+                                <rect key="frame" x="134.33333333333334" y="463.66666666666669" width="121.66666666666666" height="35.666666666666686"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="비밀번호 변경">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="resetPasswordButtonTapped:" destination="Ebw-L6-E5d" eventType="touchUpInside" id="Q6H-Xt-K3n"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yIy-Ro-ggv"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="3Cv-DJ-w7D" firstAttribute="top" secondItem="bah-sr-Ekg" secondAttribute="bottom" constant="20" id="7FR-Ci-ZYa"/>
+                            <constraint firstItem="3Cv-DJ-w7D" firstAttribute="centerX" secondItem="yIy-Ro-ggv" secondAttribute="centerX" id="E0I-Ui-9Ii"/>
                             <constraint firstItem="bah-sr-Ekg" firstAttribute="centerY" secondItem="yIy-Ro-ggv" secondAttribute="centerY" id="I90-G8-Z4p"/>
-                            <constraint firstItem="toD-bg-nac" firstAttribute="top" secondItem="bah-sr-Ekg" secondAttribute="bottom" constant="20" id="TFZ-QM-rk8"/>
                             <constraint firstItem="bah-sr-Ekg" firstAttribute="centerX" secondItem="yIy-Ro-ggv" secondAttribute="centerX" id="gwO-hD-Ka5"/>
+                            <constraint firstItem="toD-bg-nac" firstAttribute="top" secondItem="3Cv-DJ-w7D" secondAttribute="bottom" constant="20" id="kyA-mt-DcD"/>
                             <constraint firstItem="toD-bg-nac" firstAttribute="centerX" secondItem="yIy-Ro-ggv" secondAttribute="centerX" id="lwI-PY-e5E"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="welcomLabel" destination="bah-sr-Ekg" id="LPM-Va-gKq"/>
+                        <outlet property="resetPasswordButton" destination="3Cv-DJ-w7D" id="pk0-vb-E0U"/>
+                        <outlet property="welcomeLabel" destination="bah-sr-Ekg" id="5Ty-I3-lWR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uz8-ku-fTU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
