@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
     
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()
-        
+        // 로그인 계정에 상관없이 로그아웃 가능
         do{
             try firebaseAuth.signOut()
             self.navigationController?.popViewController(animated: true)
@@ -50,5 +50,17 @@ class MainViewController: UIViewController {
             print("ERROR: signOut \(signOutError.localizedDescription)")
         }
         
+    }
+    
+    @IBAction func profileUpdateButtonTappped(_ sender: UIButton) {
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = "토끼"
+        changeRequest?.commitChanges { _ in
+            let displayName = Auth.auth().currentUser?.displayName ?? Auth.auth().currentUser?.email ?? "고객"
+            
+            self.welcomeLabel.text = """
+            \(displayName)님
+            """
+        }
     }
 }

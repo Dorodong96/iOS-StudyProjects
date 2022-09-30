@@ -223,7 +223,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toD-bg-nac">
-                                <rect key="frame" x="151.66666666666666" y="519.33333333333337" width="87" height="36"/>
+                                <rect key="frame" x="151.66666666666666" y="574.33333333333337" width="87" height="36"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="로그아웃">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
@@ -238,20 +238,33 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="비밀번호 변경">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="resetPasswordButtonTapped:" destination="Ebw-L6-E5d" eventType="touchUpInside" id="Q6H-Xt-K3n"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZM-iz-Q1c">
+                                <rect key="frame" x="129" y="519.33333333333337" width="132" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="닉네임 업데이트">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="profileUpdateButtonTappped:" destination="Ebw-L6-E5d" eventType="touchUpInside" id="ToW-a1-uVP"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yIy-Ro-ggv"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="aZM-iz-Q1c" firstAttribute="centerX" secondItem="yIy-Ro-ggv" secondAttribute="centerX" id="5AN-Sn-je4"/>
                             <constraint firstItem="3Cv-DJ-w7D" firstAttribute="top" secondItem="bah-sr-Ekg" secondAttribute="bottom" constant="20" id="7FR-Ci-ZYa"/>
+                            <constraint firstItem="aZM-iz-Q1c" firstAttribute="top" secondItem="3Cv-DJ-w7D" secondAttribute="bottom" constant="20" id="A8s-9k-L38"/>
                             <constraint firstItem="3Cv-DJ-w7D" firstAttribute="centerX" secondItem="yIy-Ro-ggv" secondAttribute="centerX" id="E0I-Ui-9Ii"/>
                             <constraint firstItem="bah-sr-Ekg" firstAttribute="centerY" secondItem="yIy-Ro-ggv" secondAttribute="centerY" id="I90-G8-Z4p"/>
+                            <constraint firstItem="toD-bg-nac" firstAttribute="top" secondItem="aZM-iz-Q1c" secondAttribute="bottom" constant="20" id="cWh-JJ-BTW"/>
                             <constraint firstItem="bah-sr-Ekg" firstAttribute="centerX" secondItem="yIy-Ro-ggv" secondAttribute="centerX" id="gwO-hD-Ka5"/>
-                            <constraint firstItem="toD-bg-nac" firstAttribute="top" secondItem="3Cv-DJ-w7D" secondAttribute="bottom" constant="20" id="kyA-mt-DcD"/>
                             <constraint firstItem="toD-bg-nac" firstAttribute="centerX" secondItem="yIy-Ro-ggv" secondAttribute="centerX" id="lwI-PY-e5E"/>
                         </constraints>
                     </view>
