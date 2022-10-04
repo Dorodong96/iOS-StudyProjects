@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B99C147328EBC6E1001DD742 /* ContentCollectionViewRankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C147228EBC6E1001DD742 /* ContentCollectionViewRankCell.swift */; };
+		B99C147528EBD3B4001DD742 /* ContentCollectionViewMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C147428EBD3B4001DD742 /* ContentCollectionViewMainCell.swift */; };
+		B99C147728EBE461001DD742 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C147628EBE461001DD742 /* UIButton+.swift */; };
 		CCE1804A28E579C700AF06DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1804928E579C700AF06DB /* AppDelegate.swift */; };
 		CCE1804C28E579C700AF06DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1804B28E579C700AF06DB /* SceneDelegate.swift */; };
 		CCE1805328E579C700AF06DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCE1805228E579C700AF06DB /* Assets.xcassets */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B99C147228EBC6E1001DD742 /* ContentCollectionViewRankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewRankCell.swift; sourceTree = "<group>"; };
+		B99C147428EBD3B4001DD742 /* ContentCollectionViewMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewMainCell.swift; sourceTree = "<group>"; };
+		B99C147628EBE461001DD742 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		CCE1804628E579C700AF06DB /* NetflixStyleSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetflixStyleSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE1804928E579C700AF06DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCE1804B28E579C700AF06DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,11 +71,14 @@
 			isa = PBXGroup;
 			children = (
 				CCE1805D28E57A5100AF06DB /* HomeViewController.swift */,
+				B99C147228EBC6E1001DD742 /* ContentCollectionViewRankCell.swift */,
 				CCE1806B28E58BF200AF06DB /* ContentCollectionViewHeader.swift */,
 				CCE1806928E587E100AF06DB /* ContentCollectionViewCell.swift */,
+				B99C147428EBD3B4001DD742 /* ContentCollectionViewMainCell.swift */,
 				CCE1804928E579C700AF06DB /* AppDelegate.swift */,
 				CCE1804B28E579C700AF06DB /* SceneDelegate.swift */,
 				CCE1806728E581F800AF06DB /* Content.swift */,
+				B99C147628EBE461001DD742 /* UIButton+.swift */,
 				CCE1805228E579C700AF06DB /* Assets.xcassets */,
 				CCE1805428E579C700AF06DB /* LaunchScreen.storyboard */,
 				CCE1805728E579C700AF06DB /* Info.plist */,
@@ -159,6 +168,9 @@
 				CCE1806C28E58BF200AF06DB /* ContentCollectionViewHeader.swift in Sources */,
 				CCE1804C28E579C700AF06DB /* SceneDelegate.swift in Sources */,
 				CCE1805E28E57A5100AF06DB /* HomeViewController.swift in Sources */,
+				B99C147728EBE461001DD742 /* UIButton+.swift in Sources */,
+				B99C147328EBC6E1001DD742 /* ContentCollectionViewRankCell.swift in Sources */,
+				B99C147528EBD3B4001DD742 /* ContentCollectionViewMainCell.swift in Sources */,
 				CCE1806828E581F800AF06DB /* Content.swift in Sources */,
 				CCE1806A28E587E100AF06DB /* ContentCollectionViewCell.swift in Sources */,
 			);
@@ -228,7 +240,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -282,7 +294,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -306,6 +318,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,6 +346,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

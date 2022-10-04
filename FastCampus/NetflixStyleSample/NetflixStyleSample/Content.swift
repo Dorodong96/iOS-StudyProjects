@@ -13,12 +13,15 @@ struct Content: Decodable {
     let contentItem: [Item]
     
     enum SectionType: String, Decodable {
-        case basic, main, rank, large
+        case basic
+        case main
+        case rank
+        case large
     }
 }
 
 struct Item: Decodable {
-    let decription: String
+    let description: String
     let imageName: String
     
     var image: UIImage {
