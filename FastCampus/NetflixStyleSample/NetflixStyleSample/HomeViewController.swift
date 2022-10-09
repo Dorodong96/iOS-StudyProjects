@@ -15,7 +15,6 @@ class HomeViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // 내비게이션 설정
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -23,7 +22,7 @@ class HomeViewController: UICollectionViewController {
         navigationController?.hidesBarsOnSwipe = true
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "netflix_icon"), style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"), style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"), style: .plain, target: self, action: #selector(go))
         
         // Data 설정, 가져오기
         contents = getContents()
@@ -36,6 +35,11 @@ class HomeViewController: UICollectionViewController {
         collectionView.register(ContentCollectionViewRankCell.self, forCellWithReuseIdentifier: "ContentCollectoinViewRankCell")
         collectionView.register(ContentCollectionViewMainCell.self, forCellWithReuseIdentifier: "ContentCollectionViewMainCell")
         collectionView.collectionViewLayout = layout()
+        
+    }
+    
+    @objc func go() {
+        navigationController?.pushViewController(MyDiaryPagesViewController(), animated: true)
     }
     
     func getContents() -> [Content] {

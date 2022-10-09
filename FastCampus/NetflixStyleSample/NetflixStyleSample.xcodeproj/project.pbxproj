@@ -10,6 +10,8 @@
 		B99C147328EBC6E1001DD742 /* ContentCollectionViewRankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C147228EBC6E1001DD742 /* ContentCollectionViewRankCell.swift */; };
 		B99C147528EBD3B4001DD742 /* ContentCollectionViewMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C147428EBD3B4001DD742 /* ContentCollectionViewMainCell.swift */; };
 		B99C147728EBE461001DD742 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99C147628EBE461001DD742 /* UIButton+.swift */; };
+		CC65514928EFC26500E637A2 /* MyDiaryPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC65514828EFC26500E637A2 /* MyDiaryPagesViewController.swift */; };
+		CC65514D28EFD07800E637A2 /* MyDiaryPagesViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC65514C28EFD07800E637A2 /* MyDiaryPagesViewCollectionViewCell.swift */; };
 		CCE1804A28E579C700AF06DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1804928E579C700AF06DB /* AppDelegate.swift */; };
 		CCE1804C28E579C700AF06DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1804B28E579C700AF06DB /* SceneDelegate.swift */; };
 		CCE1805328E579C700AF06DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCE1805228E579C700AF06DB /* Assets.xcassets */; };
@@ -26,6 +28,8 @@
 		B99C147228EBC6E1001DD742 /* ContentCollectionViewRankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewRankCell.swift; sourceTree = "<group>"; };
 		B99C147428EBD3B4001DD742 /* ContentCollectionViewMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewMainCell.swift; sourceTree = "<group>"; };
 		B99C147628EBE461001DD742 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		CC65514828EFC26500E637A2 /* MyDiaryPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryPagesViewController.swift; sourceTree = "<group>"; };
+		CC65514C28EFD07800E637A2 /* MyDiaryPagesViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryPagesViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCE1804628E579C700AF06DB /* NetflixStyleSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetflixStyleSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE1804928E579C700AF06DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCE1804B28E579C700AF06DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 				CCE1804B28E579C700AF06DB /* SceneDelegate.swift */,
 				CCE1806728E581F800AF06DB /* Content.swift */,
 				B99C147628EBE461001DD742 /* UIButton+.swift */,
+				CC65514828EFC26500E637A2 /* MyDiaryPagesViewController.swift */,
+				CC65514C28EFD07800E637A2 /* MyDiaryPagesViewCollectionViewCell.swift */,
 				CCE1805228E579C700AF06DB /* Assets.xcassets */,
 				CCE1805428E579C700AF06DB /* LaunchScreen.storyboard */,
 				CCE1805728E579C700AF06DB /* Info.plist */,
@@ -168,11 +174,13 @@
 				CCE1806C28E58BF200AF06DB /* ContentCollectionViewHeader.swift in Sources */,
 				CCE1804C28E579C700AF06DB /* SceneDelegate.swift in Sources */,
 				CCE1805E28E57A5100AF06DB /* HomeViewController.swift in Sources */,
+				CC65514D28EFD07800E637A2 /* MyDiaryPagesViewCollectionViewCell.swift in Sources */,
 				B99C147728EBE461001DD742 /* UIButton+.swift in Sources */,
 				B99C147328EBC6E1001DD742 /* ContentCollectionViewRankCell.swift in Sources */,
 				B99C147528EBD3B4001DD742 /* ContentCollectionViewMainCell.swift in Sources */,
 				CCE1806828E581F800AF06DB /* Content.swift in Sources */,
 				CCE1806A28E587E100AF06DB /* ContentCollectionViewCell.swift in Sources */,
+				CC65514928EFC26500E637A2 /* MyDiaryPagesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
