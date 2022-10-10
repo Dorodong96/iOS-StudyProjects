@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>5448945454-frdmmh9jpo6h9bngedf7ej2ncq1t0si1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.5448945454-frdmmh9jpo6h9bngedf7ej2ncq1t0si1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBNVrv1YI3J0H8eXbeCTJIom2yhk5ea_XE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>5448945454</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>CaliPrivate.CreditCardList</string>
+	<key>PROJECT_ID</key>
+	<string>creditcard-list-59dee</string>
+	<key>STORAGE_BUCKET</key>
+	<string>creditcard-list-59dee.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:5448945454:ios:4f171192b6322ebc72b4bf</string>
+</dict>
+</plist>
