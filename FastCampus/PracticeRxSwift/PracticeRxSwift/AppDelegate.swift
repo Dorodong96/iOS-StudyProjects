@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  RxSwiftPractice
+//  PracticeRxSwift
 //
-//  Created by DongKyu Kim on 2022/10/24.
+//  Created by DongKyu Kim on 2022/10/30.
 //
 
 import UIKit
