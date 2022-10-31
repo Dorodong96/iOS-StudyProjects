@@ -366,6 +366,114 @@ class ViewController: UIViewController {
                 print($0)
             })
             .disposed(by: disposeBag)
+        
+// MARK: Transforming Operator
+        print("---toArray---")
+        // single 요소들을 배열로 만들어 줌
+        Observable.of("A", "B", "C")
+            .toArray()
+            .subscribe(onSuccess: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        print("---map---")
+        // swift에서 사용하는 map과 동일
+        Observable.of(Date())
+            .map { date -> String in
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                dateFormatter.locale = Locale(identifier: "ko_KR")
+                return dateFormatter.string(from: date)
+            }
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        print("---flatMap---")
+        // 중첩된 Observable 처리, flatMap을 통해 각 요소를 꺼내볼 수 있다.
+        
+        let koreanArcher = Archer(score: BehaviorSubject<Int>(value: 10))
+        let americanArcher = Archer(score: BehaviorSubject<Int>(value: 8))
+        
+        let olympic = PublishSubject<Athelete>() // 중첩된 Observable
+        
+        olympic
+            .flatMap { athelete in
+                athelete.score
+            }
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        olympic.onNext(koreanArcher)
+        koreanArcher.score.onNext(10)
+        
+        olympic.onNext(americanArcher)
+        koreanArcher.score.onNext(10)
+        americanArcher.score.onNext(9)
+        
+        
+        print("---flatMapLatest---")
+        // Observable sequence 중 가장 최신의 값만을 반영
+        // 사전에서 단어를 찾을 때, 찾는 과정에서 가장 최신의 문자열만큼의 검색을 수행할 때 (s->sw->swi->swit->switc...)
+        let seoul = Runner(score: BehaviorSubject<Int>(value: 7))
+        let busan = Runner(score: BehaviorSubject<Int>(value: 6))
+        
+        let competition = PublishSubject<Athelete>()
+        
+        competition
+            .flatMapLatest { athelete in
+                athelete.score
+            }
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        competition.onNext(seoul)
+        seoul.score.onNext(9)
+        
+        competition.onNext(busan) // 새로운 시퀀스가 들어오면 앞의 시퀀스(서울)은 무시됨
+        seoul.score.onNext(10) // 이미 최신의 값을 리턴했기 때문에 변경된 값은 무시
+        busan.score.onNext(8)
+        
+        print("---materialize and dematerialize---")
+        enum penalty: Error {
+            case falseStart
+        }
+        
+        let rabbit = Runner(score: BehaviorSubject<Int>(value: 0))
+        let turtle = Runner(score: BehaviorSubject<Int>(value: 1))
+        
+        let running100m = BehaviorSubject<Athelete>(value: rabbit)
+        
+        running100m
+            .flatMapLatest { athelete in
+                athelete.score
+                    .materialize() // 이벤트들을 함께 받을 수 있음
+            }
+            .filter {
+                guard let error = $0.error else {
+                    return true // error가 없을 때만 통과
+                }
+                print(error)
+                return false
+            }
+            .dematerialize() // 이벤트가 함께 제시되는 상황에서 값만 표시되도록 함
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        rabbit.score.onNext(1)
+        rabbit.score.onError(penalty.falseStart)
+        rabbit.score.onNext(2)
+        
+        running100m.onNext(turtle)
     }
 }
 
@@ -397,4 +505,20 @@ func decode(json: String) -> Single<SomeJSON> {
         observer(.success(json))
         return Disposables.create()
     }
+}
+
+
+// flatMap protocol & struct
+
+protocol Athelete {
+    var score: BehaviorSubject<Int> { get }
+}
+
+struct Archer: Athelete {
+    var score: BehaviorSubject<Int>
+}
+
+// flatMapLatest struct
+struct Runner: Athelete {
+    var score: BehaviorSubject<Int>
 }
