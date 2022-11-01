@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
 
@@ -25,8 +26,8 @@ class ViewController: UIViewController {
         // subjectExamples()
         // filteringExmaples()
         // transformingExamples()
-        combiningExamples()
-        timeBasedExamples()
+        // combiningExamples()
+        // timeBasedExamples()
 
     }
     
@@ -775,7 +776,161 @@ class ViewController: UIViewController {
     }
     
     private func timeBasedExamples() {
+        print("---replay---")
+        // 이미 지나간 결과에 대해서 확인할 수 있도록 해주는 연산자
+        // 구독자가 buffer 크기만큼 최신 데이터를 받을 수 있음
+        let sayHello = PublishSubject<String>()
+        let parrot = sayHello.replay(2)
+        parrot.connect() // 반드시 써줘야 함!
         
+        sayHello.onNext("1. hello")
+        sayHello.onNext("2. hello")
+        sayHello.onNext("3. hello")
+        
+        parrot
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        print("---replayAll---")
+        // 지나간 이벤트 방출에 대해서 그 결과가 지나가더라도 모두 보여주는 연산자
+        let doctorStrange = PublishSubject<String>()
+        let timeStone = doctorStrange.replayAll()
+        timeStone.connect()
+        
+        doctorStrange.onNext("도르마무")
+        doctorStrange.onNext("거래를 하러 왔다")
+        
+        timeStone
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        print("---buffer---")
+        // 최대 갯수가 제한(최대갯수->count), 1초마다 Observable의 조합을 방출
+        // source에서 받을 것이 없으면 빈 array를 반환할 수 있음
+        let source = PublishSubject<String>()
+
+        timer.schedule(deadline: .now() + 2, repeating: .seconds(1))
+        timer.setEventHandler {
+            timeCount += 1
+            source.onNext("\(timeCount)")
+        }
+        timer.resume()
+
+        source
+            .buffer(timeSpan: .seconds(2), count: 2, scheduler: MainScheduler.instance)
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        print("---window---")
+        // buffer와 유사하지만, buffer가 Array를 방출한다면 Window는 Observable을 방출
+        let maxObservableCount = 1
+        let makeTime = RxTimeInterval.seconds(2)
+
+        let window = PublishSubject<String>()
+
+        windowTimerSource.schedule(deadline: .now() + 2, repeating: .seconds(1))
+        windowTimerSource.setEventHandler {
+            windowCount += 1
+            window.onNext("\(windowCount)")
+        }
+        windowTimerSource.resume()
+
+        window
+            .window(timeSpan: makeTime, count: maxObservableCount, scheduler: MainScheduler.instance)
+            .flatMap { windowObservable -> Observable<(index: Int, element: String)> in
+                return windowObservable.enumerated()
+            }
+            .subscribe(onNext: {
+                print("\($0.index)번째 Observable의 요소 \($0.element)")
+            })
+            .disposed(by: disposeBag)
+        
+        print("---delaySubscription---")
+        // 구독 지연을 해주도록 함
+        delayTimeSource.schedule(deadline: .now() + 2, repeating: .seconds(1))
+        delayTimeSource.setEventHandler {
+            delayCount += 1
+            delaySource.onNext("\(delayCount)")
+        }
+        delayTimeSource.resume()
+
+        delaySource
+            .delaySubscription(.seconds(2), scheduler: MainScheduler.instance)
+            .subscribe(onNext: {
+                print($0)
+            }, onError: {
+                print($0.localizedDescription)
+            }, onCompleted: {
+                print("completed")
+            }, onDisposed: {
+                print("disposed")
+            })
+            .disposed(by: disposeBag)
+        
+        print("---delay---")
+        // 일정 시간 이후부터 시퀀스 자체 이벤트가 방출되도록 함
+        let delaySubject = PublishSubject<Int>()
+
+        delayTimeSource.schedule(deadline: .now(), repeating: .seconds(1))
+        delayTimeSource.setEventHandler {
+            delayCount += 1
+            delaySubject.onNext(delayCount)
+        }
+        delayTimeSource.resume()
+
+        delaySubject
+            .delay(.seconds(3), scheduler: MainScheduler.instance)
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        print("---interval---")
+        // 지금까지 임의로 만들었던 타이머를 rx로 나타내는 것으로, 일정 간격마다 수행
+        // of, next 등의 생성자 없이도 타입 만으로 값을 방출하는 타이머를 만들 수 있음
+        Observable<Int>
+            .interval(.seconds(2), scheduler: MainScheduler.instance)
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        print("---timer---")
+        // interval과 유사하지만, 구독과 첫 방출 사이에 마감시점을 설정할 수 있음
+        // 첫 구독 이후 ~ 첫번째 구독한 값 사이의 시간 의미 (일종의 delay?)
+        Observable<Int>
+            .timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        print("---timeout---")
+        // 특정 시간 내에 어떠한 이벤트도 발생하지 않을 경우 timeout 에러를 발생시킴
+        let button = UIButton(type: .system)
+        button.setTitle("눌러주세요!", for: .normal)
+        button.sizeToFit()
+        
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        
+        button.rx.tap
+            .do(onNext: {
+                print("tap")
+            })
+                .timeout(.seconds(5), scheduler: MainScheduler.instance)
+                .subscribe {
+                    print($0)
+                }
+                .disposed(by: disposeBag)
     }
 }
 
@@ -825,3 +980,14 @@ struct Archer: Athelete {
 struct Runner: Athelete {
     var score: BehaviorSubject<Int>
 }
+
+// MARK: timeBased variables
+let delaySource = PublishSubject<String>()
+
+var timeCount = 0
+var windowCount = 0
+var delayCount = 0
+
+let timer = DispatchSource.makeTimerSource()
+let windowTimerSource = DispatchSource.makeTimerSource()
+let delayTimeSource = DispatchSource.makeTimerSource()
