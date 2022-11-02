@@ -14,13 +14,9 @@ class BlogListView: UITableView {
     
     let headerView = FilterView(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 50)))
     
-    // MainViewController -> BlogListView
-    let cellData = PublishSubject<[BlogListCellData]>()
-    
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         
-        bind()
         attribute()
     }
     
@@ -28,10 +24,11 @@ class BlogListView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func bind() {
+    func bind(_ viewModel: BlogListViewModel) {
+        headerView.bind(viewModel.filterViewModel)
+        
         // cellForRowAt delegate 함수를 Rx로 표현한 것
-        cellData
-            .asDriver(onErrorJustReturn: [])
+        viewModel.cellData
             .drive(self.rx.items) { tableView, row, data in
                 let index = IndexPath(row: row, section: 0)
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BlogListCell", for: index) as! BlogListCell

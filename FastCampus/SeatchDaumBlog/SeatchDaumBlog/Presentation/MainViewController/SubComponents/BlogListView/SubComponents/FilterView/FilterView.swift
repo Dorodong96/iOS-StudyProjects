@@ -16,9 +16,6 @@ class FilterView: UITableViewHeaderFooterView {
     let sortButton = UIButton()
     let bottomBorder = UIView()
     
-    // filterView 외부에서 관찰했을 때 event를 발생할 publish
-    let sortButtonTapped = PublishRelay<Void>()
-    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
     }
@@ -27,9 +24,9 @@ class FilterView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func bind() {
+    func bind(_ viewModel: FilterViewModel) {
         sortButton.rx.tap
-            .bind(to: sortButtonTapped) // 간단한 액션 -> event 발행
+            .bind(to: viewModel.sortButtonTapped) // 간단한 액션 -> event 발행
             .disposed(by: disposeBag)
     }
     
