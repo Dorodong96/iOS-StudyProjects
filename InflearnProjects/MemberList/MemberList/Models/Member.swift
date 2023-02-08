@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol MemberDelegate: AnyObject {
+    // 이 단계에서는 Delegate, 즉 대리자가 할 수 있는 일을 정의한다.
+    func addNewMember(_ member: Member)
+    func updateMember(index: Int, _ member: Member)
+}
+
 struct Member {
     
     lazy var memberImage: UIImage? = {

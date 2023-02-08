@@ -27,15 +27,17 @@ final class ViewController: UIViewController {
         setupTableViewConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        tableView.reloadData()
-    }
+    // Delegate 패턴에서는 메서드 수행 부분에서 relaod가 되기 때문에 굳이 필요 없음
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        tableView.reloadData()
+//    }
     
     private func setup() {
-        memberListManager.makeMembersListDatas()
         view.backgroundColor = .white
+        
+        memberListManager.makeMembersListDatas()
     }
     
     private func setupNaviBar() {
@@ -73,8 +75,9 @@ final class ViewController: UIViewController {
     }
     
     @objc private func plusButtonTapped() {
-        let vc = DetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let detailVC = DetailViewController()
+        detailVC.delegate = self
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 
 }
@@ -97,10 +100,24 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
+        detailVC.delegate = self
         
         let array = memberListManager.getMemberList()
         detailVC.member = array[indexPath.row]
         
         navigationController?.pushViewController(detailVC, animated: true)
+    }
+}
+
+extension ViewController: MemberDelegate {
+    func addNewMember(_ member: Member) {
+        // 비즈니스 로직이 있는 곳에 전달
+        memberListManager.makeNewMember(member)
+        tableView.reloadData()
+    }
+    
+    func updateMember(index: Int, _ member: Member) {
+        memberListManager.updateMemberInfo(index: index, member)
+        tableView.reloadData()
     }
 }

@@ -12,6 +12,7 @@ final class DetailViewController: UIViewController {
 
     private let detailView = DetailView()
     
+    weak var delegate: MemberDelegate?
     var member: Member?
     
     override func loadView() {
@@ -45,10 +46,10 @@ final class DetailViewController: UIViewController {
     @objc func saveButtonTapped() {
         let memberID = Int(detailView.numberTextField.text!) ?? 0
         
-        // 어려운 방식...
-        let vcIndex = navigationController!.viewControllers.count - 2 // Parent view index
-        
-        let vc = navigationController?.viewControllers[vcIndex] as! ViewController
+//        // 어려운 방식...
+//        let vcIndex = navigationController!.viewControllers.count - 2 // Parent view index
+//
+//        let vc = navigationController?.viewControllers[vcIndex] as! ViewController
         
         if var member = member {
             member.memberImage = detailView.mainImageView.image
@@ -58,7 +59,8 @@ final class DetailViewController: UIViewController {
             member.address = detailView.addressTextField.text ?? ""
             
             detailView.member = member
-            vc.memberListManager.updateMemberInfo(index: memberID, member)
+            delegate?.updateMember(index: memberID, member)
+//            vc.memberListManager.updateMemberInfo(index: memberID, member)
             
         } else {
             let name = detailView.nameTextField.text ?? ""
@@ -71,7 +73,8 @@ final class DetailViewController: UIViewController {
             Member(name: name, age: age, phone: phoneNumber, address: address)
             newMember.memberImage = detailView.mainImageView.image
             
-            vc.memberListManager.makeNewMember(newMember)
+            delegate?.addNewMember(newMember)
+//            vc.memberListManager.makeNewMember(newMember)
         }
         
         navigationController?.popViewController(animated: true)
