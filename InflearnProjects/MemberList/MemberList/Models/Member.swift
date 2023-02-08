@@ -21,8 +21,8 @@ struct Member {
     
     let memberID: Int
     var name: String?
-    let age: Int?
-    let phone: String?
+    var age: Int?
+    var phone: String?
     var address: String?
     
     init(name: String?, age: Int?, phone: String?, address: String?) {

@@ -16,6 +16,8 @@
 		CC2E479A299092BF00228862 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2E4799299092BF00228862 /* Member.swift */; };
 		CC2E479C2990966B00228862 /* MemberListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2E479B2990966B00228862 /* MemberListManager.swift */; };
 		CC2E479E299098E900228862 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2E479D299098E900228862 /* MyTableViewCell.swift */; };
+		CCC1F70E299281EE00002476 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F70D299281EE00002476 /* DetailViewController.swift */; };
+		CCC1F7102992820900002476 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F70F2992820900002476 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		CC2E4799299092BF00228862 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		CC2E479B2990966B00228862 /* MemberListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListManager.swift; sourceTree = "<group>"; };
 		CC2E479D299098E900228862 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
+		CCC1F70D299281EE00002476 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		CCC1F70F2992820900002476 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				CC2E478629908F4000228862 /* ViewController.swift */,
+				CCC1F70D299281EE00002476 /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -87,6 +92,7 @@
 			children = (
 				CC2E478829908F4000228862 /* Main.storyboard */,
 				CC2E479D299098E900228862 /* MyTableViewCell.swift */,
+				CCC1F70F2992820900002476 /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,11 +178,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC2E479C2990966B00228862 /* MemberListManager.swift in Sources */,
+				CCC1F7102992820900002476 /* DetailView.swift in Sources */,
 				CC2E478729908F4000228862 /* ViewController.swift in Sources */,
 				CC2E478329908F4000228862 /* AppDelegate.swift in Sources */,
 				CC2E478529908F4000228862 /* SceneDelegate.swift in Sources */,
 				CC2E479A299092BF00228862 /* Member.swift in Sources */,
 				CC2E479E299098E900228862 /* MyTableViewCell.swift in Sources */,
+				CCC1F70E299281EE00002476 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
