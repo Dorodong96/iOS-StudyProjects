@@ -118,7 +118,26 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        
+        // 기존데이터가 있을때 ===> 기존 데이터 업데이트
+        if let toDoData = self.toDoData {
+            // 텍스트뷰에 저장되어 있는 메세지
+            toDoData.memoText = mainTextView.text
+            toDoData.color = temporaryNum ?? 1
+            toDoManager.updateToDo(newToDoData: toDoData) {
+                print("업데이트 완료")
+                // 다시 전화면으로 돌아가기
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        // 기존데이터가 없을때 ===> 새로운 데이터 생성
+        } else {
+            let memoText = mainTextView.text
+            toDoManager.saveToDoData(moemoText: memoText, colorInt: temporaryNum ?? 1) {
+                print("저장완료")
+                // 다시 전화면으로 돌아가기
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

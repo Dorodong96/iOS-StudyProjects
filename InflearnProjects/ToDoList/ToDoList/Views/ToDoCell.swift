@@ -36,8 +36,12 @@ final class ToDoCell: UITableViewCell {
     }
     
     private func configureUIwithData() {
-        // 데이터로 적절한 UI 표현하는 부분
-        // toDoTextLabel.text = MemoData?.memo.Text
+        toDoTextLabel.text = toDoData?.memoText
+        dateTextLabel.text = toDoData?.dateString
+        guard let colorNum = toDoData?.color else { return }
+        let color = MyColor(rawValue: colorNum) ?? .red
+        updateButton.backgroundColor = color.buttonColor
+        backView.backgroundColor = color.backgoundColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
